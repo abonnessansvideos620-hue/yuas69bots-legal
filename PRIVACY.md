@@ -1,54 +1,71 @@
 # Politique de confidentialite de yuAs69Bots
 
-*Derniere mise a jour : 14 mai 2026*
+*Derniere mise a jour : 15 mai 2026*
 
 ## 1. Donnees collectees
 
-yuAs69Bots collecte et stocke uniquement les donnees necessaires a son
-fonctionnement, dans une base MongoDB Atlas chiffree au repos.
+yuAs69Bots collecte et stocke uniquement les donnees strictement
+necessaires a son fonctionnement, dans une base MongoDB Atlas
+chiffree au repos. Aucune donnee ne fait l'objet de tracking
+analytique, publicite ou revente.
 
 ### Donnees stockees par fonctionnalite
 
-| Fonctionnalite | Donnees |
+| Fonctionnalite | Donnees stockees |
 |---|---|
-| **Levels (XP)** | guild_id, user_id, xp, niveau, derniere activite |
-| **Auto-reponses** | guild_id, trigger, reponse, createur |
-| **Commandes custom** | guild_id, nom, reponse, createur |
-| **Giveaways** | guild_id, message_id, prix, gagnants, liste des participants |
-| **Reaction roles** | guild_id, message_id, mapping emoji -> role |
-| **Suggestions** | guild_id, message_id, auteur, texte, liste des votants up/down, statut |
-| **Rappels** | user_id, texte, date programmee |
-| **Newsletter (pub)** | guild_id, user_id (subscribers) |
-| **Anti-raid / Anti-spam** | guild_id, configuration (pas de log des actions) |
-| **Verification** | guild_id, channel_id, role_ids |
-| **Tier premium** | guild_id, tier, date d'expiration |
-| **Welcome DM** | guild_id, message de bienvenue |
+| Levels (XP) | guild_id, user_id, xp, derniere activite |
+| Auto-reponses | guild_id, trigger, reponse, createur |
+| Commandes custom | guild_id, nom, reponse, createur |
+| Giveaways | guild_id, message_id, prix, gagnants, participants |
+| Reaction roles | guild_id, message_id, mapping emoji -> role |
+| Rappels | user_id, texte, date programmee |
+| Newsletter (pub) | guild_id, user_id (subscribers) |
+| Anti-raid / Anti-spam | guild_id, configuration (pas de log des actions) |
+| Verification | guild_id, channel_id, role_ids |
+| Tickets | guild_id, channel_id (config), threads Discord (par Discord) |
+| Tier premium | guild_id, tier, date d'expiration |
+| Welcome | guild_id, message de bienvenue, config embed |
+| Level-roles | guild_id, niveau, role_id |
+| Onboarding | guild_id, questions/choix/roles |
+| Codes premium | code, duree, statut, utilisateur final |
+
+Les **identifiants Discord (user_id, guild_id, message_id)** sont des
+identifiants publics fournis par Discord. Aucune information personnelle
+(vrai nom, email, adresse, telephone, IP, mot de passe) n'est jamais
+collectee.
 
 ## 2. Donnees NON collectees
 
 yuAs69Bots ne collecte JAMAIS :
 - Le contenu des messages prives (DMs) entre utilisateurs
-- Le contenu des messages des salons hors triggers explicites
-- Les mots de passe, emails, ou IP
-- Aucune donnee a des fins publicitaires ou de revente
+- Le contenu des messages dans les salons (hors triggers explicites
+  comme auto-reponses ou commandes prefixees `?nom`)
+- Les mots de passe, emails, adresses IP, numeros de telephone
+- Les habitudes de navigation, donnees de tracking, cookies
+- Toute donnee a des fins publicitaires ou commerciales tierces
 
-## 3. Logs
+## 3. Logs techniques
 
-Les logs Render (techniques) contiennent les acces HTTP au serveur
-keepalive et les erreurs eventuelles. Ces logs sont conserves 7 jours
-maximum par Render et ne sont pas accessibles par des tiers.
+Les logs de l'hebergeur cloud contiennent uniquement :
+- Acces HTTP au serveur de healthcheck (URL publique, sans identifiant
+  utilisateur)
+- Erreurs eventuelles du bot (stack traces techniques)
+
+Ces logs sont conserves au maximum 7 jours par l'hebergeur et ne sont
+accessibles qu'au proprietaire du bot.
 
 ## 4. Partage des donnees
 
-yuAs69Bots ne partage AUCUNE donnee avec des tiers. Les seuls services
-externes utilises sont :
-- **Discord** : pour les interactions avec l'API (obligatoire)
-- **MongoDB Atlas** : pour le stockage (chiffre au repos)
-- **Render** : pour l'hebergement
-- **UptimeRobot** : ping HTTP toutes les 5 min (uniquement l'URL de
-  healthcheck, aucune donnee utilisateur)
-- **Stripe** *(si applicable)* : pour le paiement premium (Stripe gere
-  les donnees de carte, yuAs69Bots ne les voit jamais)
+yuAs69Bots ne partage AUCUNE donnee avec des tiers a des fins
+commerciales. Les seuls services techniques externes utilises sont :
+
+- **Discord** : interactions avec l'API du bot (obligatoire pour son
+  fonctionnement)
+- **MongoDB Atlas** : stockage chiffre au repos (donnees techniques)
+- **Hebergeur cloud** : hebergement du bot 24/7
+
+Aucun donnee n'est revendue, partagee a des fins publicitaires, ni
+transferee hors UE/USA.
 
 ## 5. Tes droits (RGPD)
 
@@ -57,11 +74,15 @@ Si tu es citoyen de l'UE, tu as droit a :
 - **Suppression** : demander la suppression de tes donnees
 - **Rectification** : demander la correction de donnees incorrectes
 - **Portabilite** : recevoir tes donnees dans un format machine
+- **Opposition** : t'opposer au traitement de tes donnees
 
 Pour exercer ces droits : rejoins le [serveur Discord officiel](https://discord.gg/6RzwPAtFvq)
-ou contacte le proprietaire (jibzz69) en DM. Une commande `/botadmin resetserv`
-permet aussi a l'admin du serveur de wiper toutes les donnees du bot pour son
-serveur en une fois.
+ou contacte **jibzz69** en DM Discord.
+
+La commande `/botadmin resetserv` (reservee au proprietaire du bot)
+permet de wiper toutes les donnees du bot pour un serveur en une fois.
+Tu peux egalement quitter un serveur ou en retirer le bot pour que tes
+donnees liees a ce serveur soient eligibles a suppression.
 
 ## 6. Duree de conservation
 
@@ -69,15 +90,25 @@ serveur en une fois.
   serveur. Si le bot est retire, les donnees ne sont pas auto-supprimees
   immediatement mais peuvent l'etre sur demande.
 - **Compteurs d'usage tier** : 60 jours (TTL MongoDB automatique)
-- **Logs Render** : 7 jours
+- **Logs hebergeur** : 7 jours
+- **Sessions de tickets** : selon politique d'archivage Discord du
+  serveur concerne
 
-## 7. Modifications
+## 7. Securite
+
+- Toutes les donnees sont chiffrees au repos (MongoDB Atlas)
+- Le code source du bot est prive et non distribue
+- Acces a la base de donnees limite au proprietaire du bot uniquement
+- Aucune authentification utilisateur n'est requise (Discord gere
+  l'authentification via son OAuth)
+
+## 8. Modifications
 
 Cette politique peut etre modifiee a tout moment. Les changements
 significatifs seront annonces sur le serveur officiel yuAs69Bots.
 
-## 8. Contact
+## 9. Contact
 
 Pour toute question sur la confidentialite : rejoins le
 [serveur Discord officiel](https://discord.gg/6RzwPAtFvq) ou contacte
-le proprietaire (jibzz69) en DM.
+**jibzz69** en DM Discord.
